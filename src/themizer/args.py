@@ -34,7 +34,6 @@ def process_args() -> None:
 
     subparsers: ArgumentParser = parser.add_subparsers(
         dest='mode',
-        required=True
     )
 
     # Apply mode arguments
@@ -163,3 +162,5 @@ def process_args() -> None:
 
             for i in themes_name:
                 print(f'\t\t- {i}')
+        case _:
+            error('You have not selected a mode, use \'themizer --help\' for more information')

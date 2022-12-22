@@ -6,8 +6,8 @@ authors = ["kutu-dev"]
 license = "MIT License"
 readme = "README.md"
 keywords = ["themes", "utility", "manager"]
-homepage = "https://github.com/kutu-dev/yaqn"
-repository = ""
+homepage = "https://github.com/kutu-dev/themizer"
+repository = "https://github.com/kutu-dev/themizer"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Operating System :: OS Independent",
