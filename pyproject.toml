@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "themizer"
-version = "1.0.0"
-description = "An easy and fast CLI app to change between custom themes in Unix-like systems"
+version = "1.0.1"
+description = "An easy and fast CLI app to change between custom themes in Unix-like systems."
 authors = ["kutu-dev"]
 license = "MIT License"
 readme = "README.md"
