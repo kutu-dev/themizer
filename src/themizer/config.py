@@ -41,9 +41,9 @@ class ConfigManager():
             exist_ok=True
         )
 
-        self.last_theme_path.touch(
-            exist_ok=True
-        )
+        if not self.last_theme_path.is_file():
+            self.last_theme_path.touch()
+            self.regenerate_last_theme_used()
 
     def get_themes_path(self) -> Path:
         return self.themes_path
