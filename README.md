@@ -84,7 +84,7 @@ foo-theme/
 Configuration file:
 ```toml
 [theme]
-name = 'Pepe\'s Theme'
+name = 'Kanagawa Theme'
 
 ['fish']
 dest = '~/.config/fish'
@@ -93,7 +93,7 @@ dest = '~/.config/fish'
 dest = '~/.htop'
 ```
 
-When you run `themizer apply 'Pepe\'s Theme'` themizer will execute `before-script`, copy `foo-theme/fish/` to `~/.config/fish/`, copy `foo-theme/htop/` to `~/.htop/` and finally execute `after-script`.
+When you run `themizer apply 'Kanagawa Theme'` themizer will execute `before-script`, copy `foo-theme/fish/` to `~/.config/fish/`, copy `foo-theme/htop/` to `~/.htop/` and finally execute `after-script`.
 
 > Note: As you can assume the subdirectory `theme` will not work correctly as its name is used to refer the header of the configuration.'
 
@@ -105,6 +105,9 @@ You can use your custom path for the config using `--config`:
 ```
 > themizer --config /path/to/config/directory
 ```
+
+## Contributing
+Feel free to report a bug or request a branch merge, I appreciate any contribution.
 
 ## Author
 
