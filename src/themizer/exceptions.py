@@ -13,41 +13,60 @@ def except_handler():
     yield
     sys.excepthook = sys.__excepthook__
 
-class ThemeNotFound(Exception):
+class CustomBaseException(Exception):
+    """A base exception to print all the exceptions with the correct text format and color"""
+    def __init__(self) -> None:
+        super().__init__()
+        self.error_message: str
+
+    def __str__(self) -> str:
+        return raw_error(self.error_message)
+
+class ThemeNotFound(CustomBaseException):
     """The theme has not found in the themes directory"""
 
-    def __str__(self) -> str:
-        return raw_error('The theme has not found in the themes directory')
+    def __init__(self) -> None:
+        super().__init__()
+        self.error_message = 'The theme has not found in the themes directory'
 
-class ThemeAlreadyExists(Exception):
+class ThemeAlreadyExists(CustomBaseException):
     """The theme already exist in the themes directory"""
     
-    def __str__(self) -> str:
-        return raw_error('The theme already exist in the themes directory')
+    def __init__(self) -> None:
+        super().__init__()
+        self.error_message = 'The theme already exist in the themes directory'
 
-class DuplicatedThemeName(Exception):
+class DuplicatedThemeName(CustomBaseException):
     """Already exist a theme with the same name"""
     
-    def __str__(self) -> str:
-        return raw_error('Already exist a theme with the same name')
+    def __init__(self) -> None:
+        super().__init__()
+        self.error_message = 'Already exist a theme with the same name'
 
-class ConfigBodyIsEmpty(Exception):
+class ConfigBodyIsEmpty(CustomBaseException):
     """The theme config body is empty"""
     
-    def __str__(self) -> str:
-        return raw_error('The theme config body is empty')
+    def __init__(self) -> None:
+        super().__init__()
+        self.error_message = 'The theme config body is empty'
 
-class SavedConfigNotFound(Exception):
+class SavedConfigNotFound(CustomBaseException):
     """The selected configuration does not exist"""
-    def __str__(self) -> str:
-        return raw_error('The selected configuration does not exist')
 
-class DestNotFound(Exception):
+    def __init__(self) -> None:
+        super().__init__()
+        self.error_message = 'The selected configuration does not exist'
+
+class DestNotFound(CustomBaseException):
     """The destination directory does not exist"""
-    def __str__(self) -> str:
-        return raw_error('The destination directory does not exist')
 
-class InvalidClearTerminalStatus(Exception):
+    def __init__(self) -> None:
+        super().__init__()
+        self.error_message = 'The destination directory does not exist'
+
+class InvalidClearTerminalStatus(CustomBaseException):
     """The value in clear_terminal is invalid"""
-    def __str__(self) -> str:
-        return raw_error('The value in clear_terminal is invalid')
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.error_message = 'The value in clear_terminal is invalid'

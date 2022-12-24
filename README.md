@@ -121,18 +121,18 @@ The `App` class has this set of useful methods to interact with Themizer:
 | Method | Description |
 | --- | --- |
 | `apply_theme(theme_name: str)` | Apply an existing theme. Leave theme_name None to try to use the last theme applied. Return the theme applied. |
-| `create_theme(theme_name: str` | Create a new theme. |
-| `delete_theme(theme_name: str` | Delete an existing theme. |
+| `create_theme(theme_name: str)` | Create a new theme. |
+| `delete_theme(theme_name: str)` | Delete an existing theme. |
 | `move_theme_config` | Only moves the directories indicated in the theme and not run the 'before' and 'after' scripts. |
-| `run_before_script(theme_name: str` | Run the 'before' script of the selected theme. |
-| `run_after_script(theme_name: str` | Run the 'after' script of the selected theme. |
-| `get_theme_config(theme_name: str` | Return all the config of the theme. |
-| `get_theme_config_head(theme_name: str` | Return the head of the config of the theme. |
-| `get_theme_config_body(theme_name: str` | Return the body of the config of the theme. |
-| `get_themes_dict` | Return a dict with the names of all themes and its internal object. |
-| `set_last_theme_used(theme_name: str` | Set the last theme to a custom one. |
-| `get_last_theme_used` | Return the last theme used by the user. |
-| `get_clear_terminal(theme_name: str` | Return if the theme selected should clear the terminal. |
+| `run_before_script(theme_name: str)` | Run the 'before' script of the selected theme. |
+| `run_after_script(theme_name: str)` | Run the 'after' script of the selected theme. |
+| `get_theme_config(theme_name: str)` | Return all the config of the theme. |
+| `get_theme_config_head(theme_name: str)` | Return the head of the config of the theme. |
+| `get_theme_config_body(theme_name: str)` | Return the body of the config of the theme. |
+| `get_themes_dict)` | Return a dict with the names of all themes and its internal object. |
+| `set_last_theme_used(theme_name: str)` | Set the last theme to a custom one. |
+| `get_last_theme_used)` | Return the last theme used by the user. |
+| `get_clear_terminal(theme_name: str)` | Return if the theme selected should clear the terminal. |
 
 ## Contributing
 Feel free to report a bug or request a branch merge, I appreciate any contribution.
