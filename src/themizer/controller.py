@@ -72,3 +72,7 @@ class Controller():
     def get_last_theme_used(self) -> str:
         """Return the last theme used by the user"""
         return self.config.get_last_theme_used()
+
+    def get_clear_terminal(self, theme_name: str) -> bool:
+        """Return if the theme selected should clear the terminal"""
+        return self.themes.get_theme(theme_name).get_clear_terminal()

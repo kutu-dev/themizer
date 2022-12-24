@@ -19,8 +19,8 @@ class ThemeManager():
         # Generate a list with all files and directories inside the themes directory
         for i in self.themes_path.glob('*'):
             if not i.is_dir():
-                pass
-            
+                continue
+
             current_theme: Theme = Theme(i, self.config)
 
             try:

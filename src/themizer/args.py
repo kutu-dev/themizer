@@ -128,7 +128,9 @@ def process_args() -> None:
     match args.mode:
         case 'apply':
             applied_theme_name: str = controller.apply_theme(args.theme_name)
-            ok(f'Theme \'{applied_theme_name}\' applied')
+
+            if not controller.get_clear_terminal(args.theme_name):
+                ok(f'Theme \'{applied_theme_name}\' applied')
         case 'create':
             controller.create_theme(args.theme_name)
             ok(f'Theme \'{args.theme_name}\' created')
@@ -137,12 +139,11 @@ def process_args() -> None:
             ok(f'Theme \'{args.theme_name}\' deleted')
         case 'list':
             # Get all themes names and print them
-            themes: dict = controller.get_themes_list()
+            themes: dict = controller.get_themes_dict()
 
             themes_name: list[str] = [x for x in themes]
 
             last_theme: str = controller.get_last_theme_used()
-
             if last_theme == '':
                 info('Available themes:')
                 for i in themes_name:

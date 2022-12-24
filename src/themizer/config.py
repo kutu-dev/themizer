@@ -53,11 +53,11 @@ class ConfigManager():
 
     def get_last_theme_used(self) -> str:
         with open(self.last_theme_path, 'r') as file:
-                return file.readline(1)
+                return file.read().replace('\n', '')
 
     def set_last_theme_used(self, theme_name: str) -> None:
         with open(self.last_theme_path, 'w') as file:
-            file.write(theme_name)
+            file.write(f'{theme_name}\n')
 
     def regenerate_last_theme_used(self) -> None:
         with open(self.last_theme_path, 'w') as file:

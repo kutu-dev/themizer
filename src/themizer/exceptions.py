@@ -46,3 +46,8 @@ class DestNotFound(Exception):
     """The destination directory does not exist"""
     def __str__(self) -> str:
         return raw_error('The destination directory does not exist')
+
+class InvalidClearTerminalStatus(Exception):
+    """The value in clear_terminal is invalid"""
+    def __str__(self) -> str:
+        return raw_error('The value in clear_terminal is invalid')

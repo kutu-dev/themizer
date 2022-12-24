@@ -1,4 +1,4 @@
-from .exceptions import SavedConfigNotFound, ConfigBodyIsEmpty, DestNotFound, except_handler
+from .exceptions import SavedConfigNotFound, ConfigBodyIsEmpty, DestNotFound, InvalidClearTerminalStatus, except_handler
 from .messages import ask, info, error, ok
 from .config import ConfigManager
 from pathlib import Path
@@ -7,17 +7,18 @@ from os import access, X_OK
 import subprocess
 import tomllib
 import shutil
+import getpass
 import stat
 import sys
 
 # Generate the message of the scripts
 def GENERIC_SCRIPT_MESSAGE_GENERATOR(when: str) -> list[str]:
     return [
-                '#!/usr/bin/env sh\n',
-                '\n'
-                f'# This file will be executed {when} this theme is applied.\n',
-                '# You can change the shebang to anything you need and it will work.\n'
-            ]
+            '#!/usr/bin/env sh\n',
+            '\n'
+            f'# This file will be executed {when} this theme is applied.\n',
+            '# You can change the shebang to anything you need and it will work.\n'
+    ]
 
 class SCRIPT_MESSAGE(Enum):
     BEFORE: list[str] = GENERIC_SCRIPT_MESSAGE_GENERATOR('before')
@@ -122,13 +123,26 @@ class Theme():
     def get_theme_name(self) -> str:
         try:
             return self.theme_internal_config['name']
-        except (KeyError):
+        except (KeyError, AttributeError):
             return str(self.theme_path.parts[-1])
-        
+
+    def get_clear_terminal(self) -> bool:
+        try:
+            clear_terminal: bool = self.theme_internal_config['clear_terminal']
+        except KeyError:
+            return False
+
+        if not clear_terminal in (True, False):
+            with except_handler():
+                raise InvalidClearTerminalStatus
+
+        return clear_terminal
 
     def apply_theme(self) -> None:
         self.run_script(self.before_script_path)
         self.move_configs()
+        if self.get_clear_terminal():
+            subprocess.Popen('clear')
         self.run_script(self.after_script_path)
         self.config.set_last_theme_used(self.get_theme_name())
 
@@ -141,11 +155,12 @@ class Theme():
                 with except_handler():
                    raise ConfigBodyIsEmpty
 
+        # Iterate each directory/file the user want to copy
         for i in self.theme_guidelines_config:
-            # Iterate each directory the user want to copy
+            # Get the file or directory the user has provided
             current_config_path: Path = Path(self.theme_path, i)
 
-            if not current_config_path.is_dir():
+            if not current_config_path.is_dir() and not current_config_path.is_file():
                 with except_handler():
                     raise SavedConfigNotFound
             
@@ -162,9 +177,25 @@ class Theme():
                     Path(*dest_config_path.parts[1::])
                 )
 
-            # Delete the destination directory if it already exists
-            if dest_config_path.is_dir():
-                shutil.rmtree(dest_config_path)
+            if current_config_path.is_dir():
+                # If is a directory
+                self.move_directory(current_config_path, dest_config_path)
+            else:
+                # If is a file
+                self.move_file(current_config_path, dest_config_path)
 
-            # Copy all content from theme to destination
-            shutil.copytree(current_config_path, dest_config_path)
+    def move_directory(self, from_directory_path: Path, dest_directory_path) -> None:
+        # Delete the destination directory if it already exists
+        if dest_directory_path.is_dir():
+            shutil.rmtree(dest_directory_path)
+
+        # Copy all content from theme to destination
+        shutil.copytree(from_directory_path, dest_directory_path)
+
+    def move_file(self, from_file_path: Path, dest_file_path: Path) -> None:
+        # Delete the destination file if it already exists
+        if dest_file_path.is_dir():
+            shutil.unlink(dest_file_path)
+
+        # Copy the from file to the destination file
+        shutil.copy(from_file_path, dest_file_path)
