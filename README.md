@@ -10,7 +10,7 @@
 ## Usage
 **Create a theme:**
 ```bash
-> themizer create foo # foo is the name of the theme to create
+> themizer create foo
 ```
 
 **Apply a theme:**
@@ -18,9 +18,10 @@
 > themizer apply bar
 ```
 
-**Apply the last used theme:**
+**Apply the last used theme:**  
+_When you not specify the theme to use themizer will try to use the last applied theme._
 ```bash
-> themizer apply # When you not specify the theme to use themizer will try to use the last applied theme
+> themizer apply
 ```
 
 **Delete a theme:**
@@ -69,7 +70,7 @@ clear_terminal = true # By default is false, if is true the theme will clear the
 #### The body:
 The body is former for the relative path of the config to move `theme-name/super-config` and the destination `~/.config/super-app`. Looking like this:
 ```toml
-['super-config'] # Relative directory from the theme path
+['foobar'] # Relative directory from the theme path
 dest = '~/.config/super-app' # Absolute path (can use ~to refer the home path)
 ```
 #### Example:
